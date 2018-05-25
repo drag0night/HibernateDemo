@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 25, 2018 8:48:06 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vanhy.entity.Borrowlist" table="borrowlist" catalog="library" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="reader" class="com.vanhy.entity.Reader" fetch="select">
+            <column name="ReaderPersonID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="staff" class="com.vanhy.entity.Staff" fetch="select">
+            <column name="StaffPersonID" />
+        </many-to-one>
+        <property name="amount" type="java.lang.Integer">
+            <column name="Amount" />
+        </property>
+        <set name="borrowbooks" table="borrowbook" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="BorrowListID" not-null="true" />
+            </key>
+            <one-to-many class="com.vanhy.entity.Borrowbook" />
+        </set>
+    </class>
+</hibernate-mapping>
